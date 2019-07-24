@@ -26,24 +26,9 @@ public class SNSEndpointController {
     
     @GetMapping("/send")
     public void sendMsg() {
-    	snsmessageSender.send("tricon", "Test message", "Testing");
-    	System.out.println("Message sent");
+    	snsmessageSender.send("topic name", "Test message", "subject");
+    	logger.info("Message sent");
     }
 
-    @NotificationMessageMapping
-    public void receiveNotification(@NotificationMessage String message, @NotificationSubject String subject) {
-        logger.info("Received message: {}, having subject: {}", message, subject);
-    }
-
-    @NotificationUnsubscribeConfirmationMapping
-    public void confirmSubscriptionMessage(NotificationStatus notificationStatus) {
-        logger.info("Unsubscribed from Topic");
-        notificationStatus.confirmSubscription();
-    }
-
-    @NotificationSubscriptionMapping
-    public void confirmUnsubscribeMessage(NotificationStatus notificationStatus) {
-        logger.info("Subscribed to Topic");
-        notificationStatus.confirmSubscription();
-    }
+  
 }
